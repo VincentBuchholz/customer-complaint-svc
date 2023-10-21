@@ -1,0 +1,28 @@
+quarkus:
+  log:
+    level: INFO
+customer:
+  complaint:
+    svc:
+      contextName: customer-complaint-svc
+
+      jira:
+        url: https://vvsolutions.atlassian.net
+        project: CTT
+
+      routes:
+        initRoute:
+          in: direct:init-from-api
+          routeId: from-api-route-id
+
+        sendMail:
+          in: direct:send-mail-route
+          routeId: send-mail-route-id
+
+        handleComplaintsMain:
+          in: direct:handle-complaints-main
+          routeId: handle-complaints-route-id
+
+        addIssue:
+          out: jira://addIssue?jiraUrl=${JIRA_URL}&username=RAW(${JIRA_USERNAME})&password=RAW(${JIRA_PASSWORD})
+
